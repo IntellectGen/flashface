@@ -3,6 +3,12 @@ Unofficial PyTorch Implementation for [FlashFace](https://arxiv.org/abs/2403.170
 
 This project still work in process. Please stay tuned for pretrained model releasing.
 
+The generate result based on our pretrained model with prompt: *a woman with a flower in her hair, white dress, looking at viewer, flower, hair ornament, realistic, blue background, hair flower, simple background, upper body*
+
+From left to right means use 1 to 4 faces.
+![yangmi_4faces](asset/result_yangmi.png)
+![liuyifei_4faces](asset/result_liuyifei.png)
+
 ## Environment
 ```
 torch>2.0
@@ -35,6 +41,7 @@ accelerate launch --multi_gpu --main_process_port=21634 --mixed_precision=fp16 t
 ```
 
 ## Inference
+We train a model with about 400M samples on 8 x A100-80G with total batch size 64. Please download it from [here(not ready currently)]() !
 ```bash
 python inference.py
 ```
