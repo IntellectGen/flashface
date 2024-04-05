@@ -21,7 +21,10 @@ accelerate==0.23.0
 ```
 
 ## Data
-prepare data structure
+prepare jsonl file for data
+```json
+{"path": "path/to/image.jpg", "size": [512, 512], "caption": "a woman holding flowers, white dress, looking at viewer, black hair, black eyes, realistic", "ref": ["path/to/face1.jpg", "path/to/face2.jpg", "path/to/face3.jpg"]}
+```
 
 ## Train
 ```bash
@@ -48,6 +51,8 @@ We train a model with about 400M samples on 8 x A100-80G with total batch size 6
 ```bash
 python inference.py
 ```
+## Reference
+- [magic-research/magic-animate](https://github.com/magic-research/magic-animate)
 
 ## Citation
 ```
@@ -60,3 +65,4 @@ python inference.py
       primaryClass={cs.CV}
 }
 ```
+
