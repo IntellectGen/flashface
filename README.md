@@ -1,7 +1,7 @@
 # open FlashFace
-Unofficial PyTorch Implementation for [FlashFace](https://arxiv.org/abs/2403.17008): A ReferenceNet absed few shot Identity Personalization.
+Unofficial PyTorch Implementation for [FlashFace](https://arxiv.org/abs/2403.17008). This work is a ReferenceNet absed few shot Identity Personalization.
 
-This project still work in process. Please stay tuned for pretrained model releasing.
+This project is the minimal implementation of the flashface and still work in process. Please stay tuned for pretrained model releasing.
 
 The generate result based on our pretrained model with prompt: *a woman with a flower in her hair, white dress, looking at viewer, flower, hair ornament, realistic, blue background, hair flower, simple background, upper body*
 
