@@ -9,6 +9,9 @@ From left to right means use 1 to 4 faces.
 ![yangmi_4faces](asset/result_yangmi.png)
 ![liuyifei_4faces](asset/result_liuyifei.png)
 
+## Update
+- [2024-04-06]: Init repo and upload training code.
+
 ## Environment
 ```
 torch>2.0
