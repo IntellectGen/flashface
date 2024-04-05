@@ -8,6 +8,8 @@ The generate result based on our pretrained model with prompt: *a woman with a f
 From left to right means use 1 to 4 faces.
 ![yangmi_4faces](asset/result_yangmi.png)
 ![liuyifei_4faces](asset/result_liuyifei.png)
+Face blend
+![blend](asset/result_blend.png)
 
 ## Update
 - [2024-04-06]: Init repo and upload training code.
