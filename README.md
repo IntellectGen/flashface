@@ -12,6 +12,7 @@ Face blend
 ![blend](asset/result_blend.png)
 
 ## Update
+- [2024-04-07]: add inference code and upload pretrained model.
 - [2024-04-06]: Init repo and upload training code.
 
 ## Environment
@@ -49,7 +50,9 @@ accelerate launch --multi_gpu --main_process_port=21634 --mixed_precision=fp16 t
 ```
 
 ## Inference
-We train a model with about 400M samples on 8 x A100-80G with total batch size 64. Please download it from [here(not ready currently)]() !
+We train a model with about 400M samples on 8 x A100-80G with total batch size 64. Please download it from [here](https://huggingface.co/IntellectGen/FlashFace) !
+For inference, use `insightface` to crop align face firstly, and then modify `nference.py` to run. At least 8GB VRAM required.
+
 ```bash
 python inference.py
 ```
