@@ -392,7 +392,7 @@ class AspectDataset(Dataset):
         pixel_values = self.transform(image)
         face_pixel_values = torch.zeros(self.max_face_num, 3, 256, 256)
         if len(ref_faces) > 0:
-            face_pixel_values[:len(ref_faces)] = torch.stack([self.ref_face_transform(ref_face) for ref_face in ref_faces], dim=0)
+            face_pixel_values[:len(ref_faces)] = torch.stack([self.face_transform(ref_face) for ref_face in ref_faces], dim=0)
 
         if np.random.random() < self.proportion_empty_prompts:
             caption = ""
@@ -431,7 +431,6 @@ if __name__ == "__main__":
     from torchvision.utils import make_grid, save_image
     from accelerate import Accelerator
     from transformers import CLIPTokenizer
-    from parsenet import FaceSeg
 
     accelerator = Accelerator()
 

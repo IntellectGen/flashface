@@ -143,13 +143,13 @@ class ReferenceNet(nn.Module):
     def __init__(
         self,
         denoising_unet: UNet2DConditionModel,
-        reference_unet: UNet2DConditionModel,
+        referencenet: UNet2DConditionModel,
     ):
         super().__init__()
         self.denoising_unet = denoising_unet
-        self.reference_unet = reference_unet
+        self.referencenet = referencenet
         self.reference_control_writer  = ReferenceAttentionControl(
-            reference_unet,
+            referencenet,
             do_classifier_free_guidance=False,
             mode="write",
             fusion_blocks="midup",
@@ -170,7 +170,7 @@ class ReferenceNet(nn.Module):
     ):
         if ref_latents is not None:
             n = ref_latents.size(0) // noisy_latents.size(0)
-            self.reference_unet(
+            self.referencenet(
                 ref_latents,
                 torch.zeros_like(timesteps).repeat_interleave(n, dim=0),
                 encoder_hidden_states=encoder_hidden_states.repeat_interleave(n, dim=0),
@@ -209,17 +209,17 @@ def main(args):
     text_encoder: CLIPTextModel = CLIPTextModel.from_pretrained(args.pretrained_model_name_or_path, subfolder="text_encoder")
     vae: AutoencoderKL = AutoencoderKL.from_pretrained(args.pretrained_model_name_or_path, subfolder="vae")
     unet: UNet2DConditionModel = UNet2DConditionModel.from_pretrained(args.pretrained_model_name_or_path, subfolder="unet")
-    reference_unet: UNet2DConditionModel = UNet2DConditionModel.from_pretrained(args.pretrained_model_name_or_path, subfolder="unet")
+    referencenet: UNet2DConditionModel = UNet2DConditionModel.from_pretrained(args.pretrained_model_name_or_path, subfolder="unet")
 
-    net = ReferenceNet(unet, reference_unet)
+    net = ReferenceNet(unet, referencenet)
 
     # freeze parameters of models to save more memory
     vae.requires_grad_(False)
     text_encoder.requires_grad_(False)
 
     unet.requires_grad_(True)
-    #  Some top layer parames of reference_unet don't need grad
-    for name, param in reference_unet.named_parameters():
+    #  Some top layer parames of referencenet don't need grad
+    for name, param in referencenet.named_parameters():
         if "up_blocks.3" in name:
             param.requires_grad_(False)
         else:
@@ -343,7 +343,7 @@ def main(args):
                 if global_step % args.save_steps == 0 and accelerator.is_main_process:
                     save_path = os.path.join(args.output_dir, f"checkpoint-{global_step}")
                     accelerator.unwrap_model(unet).save_pretrained(os.path.join(save_path, "unet"))
-                    accelerator.unwrap_model(reference_unet).save_pretrained(os.path.join(save_path, "ref"))
+                    accelerator.unwrap_model(referencenet).save_pretrained(os.path.join(save_path, "refnet"))
                     accelerator.print(f"save ckpt to {save_path}")
 
             begin = time.perf_counter()
@@ -351,7 +351,7 @@ def main(args):
     if accelerator.is_main_process:
         save_path = os.path.join(args.output_dir, "final")
         accelerator.unwrap_model(unet).save_pretrained(os.path.join(save_path, "unet"))
-        accelerator.unwrap_model(reference_unet).save_pretrained(os.path.join(save_path, "ref"))
+        accelerator.unwrap_model(referencenet).save_pretrained(os.path.join(save_path, "refnet"))
         accelerator.print(f"save ckpt to {save_path}")
 
 
