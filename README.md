@@ -1,7 +1,7 @@
 # open FlashFace
-Unofficial PyTorch Implementation for [FlashFace](https://arxiv.org/abs/2403.17008). This work is a ReferenceNet absed few shot Identity Personalization.
+Unofficial PyTorch Implementation for [FlashFace](https://arxiv.org/abs/2403.17008). The work is a ReferenceNet absed zero shot Identity Personalization.
 
-This project is the minimal implementation of the flashface and still work in process. Please stay tuned for pretrained model releasing.
+This project is the minimal implementation of the flashface and still work in process. 
 
 The generate result based on our pretrained model with prompt: *a woman with a flower in her hair, white dress, looking at viewer, flower, hair ornament, realistic, blue background, hair flower, simple background, upper body*
 
@@ -24,7 +24,12 @@ accelerate==0.23.0
 ```
 
 ## Data
-prepare jsonl file for data
+prepare jsonl file for data. Each line should be a json string with following key and value:
+- `path`: for ground truth image path. 
+- `size`: `(width, height)` tuple of ground truth image size.
+- `caption`: caption for ground truth image.
+- `ref`: list of reference face path.
+
 ```json
 {"path": "path/to/image.jpg", "size": [512, 512], "caption": "a woman holding flowers, white dress, looking at viewer, black hair, black eyes, realistic", "ref": ["path/to/face1.jpg", "path/to/face2.jpg", "path/to/face3.jpg"]}
 ```
