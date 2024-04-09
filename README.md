@@ -56,7 +56,7 @@ accelerate launch --multi_gpu --main_process_port=21634 --mixed_precision=fp16 t
 
 ## Inference
 We train a model with about 400M samples on 8 x A100-80G with total batch size 64. Please download it from [here](https://huggingface.co/IntellectGen/FlashFace) !
-For inference, use `insightface` to crop align face firstly, and then modify `nference.py` to run. At least 8GB VRAM required.
+For inference, use `insightface` to crop align face firstly, and then modify `inference.py` to run. At least 8GB VRAM required.
 
 ```bash
 python inference.py
